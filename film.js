@@ -103,4 +103,79 @@ const filmy = [
 			'Na zámek v podhůří Krkonoš přijíždí jeho nový majitel Štěpán se svojí snoubenkou, krásnou komtesou Blankou, a mladším bratrem Adamem. Cestou kočár nešťastně srazí kolemjdoucí dívku, Adam jí pomůže a ona se do něj zamiluje. Na zámku Adam objeví starou vlašskou knihu, která by měla obsahovat cestu k pokladům. Tajemné značky vlašské knihy však nedokáže vyluštit ani národopisec Jiráček, který v kraji sbírá pověsti a nevychází z údivu nad tím, že zdejší lidé stále věří v Krakonoše. Na zámku se objeví záhadný cizinec a nabídne Štěpánovi, že jej k pokladu za určitých podmínek dovede. Výprava do hor může začít. Naplní se Liduščina láska k Adamovi? Jakou záhadu skrývá starý obraz na zámku Hůrka a co strašlivého se v horách kdysi odehrálo? A kdo je vlastně Krakonoš a jaké je jeho největší tajemství? (csfd.cz, Česká televize)',
 		premiera: '2022-12-24',
 	},
+	{
+		id: 'harry-potter-a-jak-to-bylo-dal',
+		nazev: 'Harry Potter a jak to bylo dál',
+		plakat: {
+			url: 'https://assets.mycast.io/posters/harry-potter-the-next-generation-fan-casting-poster-292850-large.jpg?1677254859',
+			sirka: 588,
+			vyska: 828,
+		},
+		ochutnavka: 'Harry, Ron a Hermiona zase tropí neplechu',
+		popis:
+			'Přichází nová generace kouzelníků! Dočkáme se ale kompletně nového obsazení. Fanoušci jsou zvědaví, ale zároveň se obávají, že nová adaptace slavného fenoménu bude krok špatným směrem.',
+		premiera: '2024-04-13',
+	}
 ]
+
+// detail filmu
+const filmId = window.location.hash.slice(1)
+const film = filmy.find((ar) => ar.id === filmId)
+
+const detailFilmu = document.querySelector("#detail-filmu")
+const plakat = detailFilmu.querySelector('.img-fluid')
+const premiere = document.querySelector("#premiera")
+
+detailFilmu.querySelector('.card-title').textContent = film.nazev
+detailFilmu.querySelector('.card-text').textContent = film.popis
+
+plakat.src = film.plakat.url
+plakat.width = film.plakat.sirka
+plakat.height = film.plakat.vyska
+
+premiere.innerHTML = `Premiéra <strong>${dayjs(film.premiera).format('D. M. YYYY')}</strong>`
+
+
+// odpočet do premiéry
+const dnes = dayjs();
+const pocetDni = dayjs(dnes).diff(film.premiera, 'days')
+let koncovka = ""
+let koncovka2 = ""
+
+if(pocetDni == 1) {
+	koncovka = "dnem"
+	koncovka2 = "den"
+} else if (pocetDni > 0 <= 4) {
+	koncovka = "dny"
+	koncovka2 = "dny"
+} else {
+	koncovka = "dny"
+	koncovka2 = "dní"
+}
+
+if (dnes.isAfter(dayjs(film.premiera))) {
+  premiere.innerHTML += `<br>Premiera byla před ${pocetDni} ${koncovka}`
+} else {
+  premiere.innerHTML += `<br>Musíš počkat ještě ${pocetDni*-1} ${koncovka2}`
+}
+
+
+// poznámky (textové pole + checkbox)
+const noteForm = document.querySelector("#note-form")
+const messageInput = document.querySelector("#message-input")
+const termsCheckbox = document.querySelector("#terms-checkbox")
+const label = document.querySelector(".form-label")
+
+noteForm.addEventListener("submit", (event) => {
+    event.preventDefault()
+	if (messageInput.value.length == 0) {
+		messageInput.classList.add("is-invalid")
+		messageInput.focus(label)
+	} else {
+		if (!termsCheckbox.checked) {
+			termsCheckbox.classList.add("is-invalid")
+		} else {
+			noteForm.innerHTML = `${messageInput.value}`
+		}
+	}
+})

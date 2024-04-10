@@ -103,4 +103,43 @@ const filmy = [
 			'Na zámek v podhůří Krkonoš přijíždí jeho nový majitel Štěpán se svojí snoubenkou, krásnou komtesou Blankou, a mladším bratrem Adamem. Cestou kočár nešťastně srazí kolemjdoucí dívku, Adam jí pomůže a ona se do něj zamiluje. Na zámku Adam objeví starou vlašskou knihu, která by měla obsahovat cestu k pokladům. Tajemné značky vlašské knihy však nedokáže vyluštit ani národopisec Jiráček, který v kraji sbírá pověsti a nevychází z údivu nad tím, že zdejší lidé stále věří v Krakonoše. Na zámku se objeví záhadný cizinec a nabídne Štěpánovi, že jej k pokladu za určitých podmínek dovede. Výprava do hor může začít. Naplní se Liduščina láska k Adamovi? Jakou záhadu skrývá starý obraz na zámku Hůrka a co strašlivého se v horách kdysi odehrálo? A kdo je vlastně Krakonoš a jaké je jeho největší tajemství? (csfd.cz, Česká televize)',
 		premiera: '2022-12-24',
 	},
+	{
+		id: 'harry-potter-a-jak-to-bylo-dal',
+		nazev: 'Harry Potter a jak to bylo dál',
+		plakat: {
+			url: 'https://assets.mycast.io/posters/harry-potter-the-next-generation-fan-casting-poster-292850-large.jpg?1677254859',
+			sirka: 588,
+			vyska: 828,
+		},
+		ochutnavka: 'Harry, Ron a Hermiona zase tropí neplechu',
+		popis:
+			'Nový školní rok kazí boj mezi Voldemortovými přívrženci a stoupenci dobra, které nepříjemně zasahují do života všech budoucích čarodějů. Bradavice přestávají být spolehlivým přístavem bezpečí a Harry má podezření, že hrozba je ukryta přímo ve zdech školy. Brumbál ho chce připravit na blížící se závěrečnou bitvu. Společně hledají způsob, jakým Voldemorta zasáhnout na nejcitlivějším místě. Obrátí se na svého kolegu a dlouholetého přítele, bonvivánského profesora Horácia Křiklana, který má podle jeho mínění pro Harryho zcela zásadní informace. I ve chvíli rozhodujícího střetnutí Harry, Ron a Hermiona prožívají své romantické příběhy. Harry cítí stále silnější náklonnost k Ginny, své city k ní ovšem dává najevo i Dean Thomas. Levandule Brownová se rozhodne, že tím pravým pro ni je Ron. A Hermiona, která ve skrytu duše žárlí, je odhodlána své pocity skrýt. Když Harry objeví starou a počmáranou učebnici lektvarů, patřící tajemnému Princi Dvojí Krve, spoléhá se stále víc i přes Hermionino varování na její kouzla. Blíží se však obrovská tragédie, po níž Bradavice už nikdy nebudou stejné, jako dřív.',
+		premiera: '2024-04-13',
+	}
 ]
+
+const seznamFilmu = document.querySelector("#seznam-filmu")
+
+seznamFilmu.innerHTML = ""
+
+
+filmy.forEach((item) => {
+	seznamFilmu.innerHTML += `
+	<div class="col">
+		<div class="card">
+			<img
+				src="${item.plakat.url}"
+				width="${item.plakat.sirka}"
+				height="${item.plakat.vyska}"
+				class="card-img-top"
+				alt="${item.id}"
+			/>
+			<div class="card-body">
+				<h5 class="card-title">${item.nazev}</h5>
+				<p class="card-text">${item.ochutnavka}</p>
+				<a href="film.html#${item.id}" class="btn btn-primary">Přehrát</a>
+		</div>
+	</div>
+	</div>
+	`
+})
